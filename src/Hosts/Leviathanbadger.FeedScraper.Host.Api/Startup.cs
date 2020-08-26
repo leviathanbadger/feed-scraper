@@ -1,7 +1,7 @@
 using Leviathanbadger.FeedScraper.Api.Controllers;
+using Leviathanbadger.FeedScraper.Host.Configuration.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,9 +20,7 @@ namespace Leviathanbadger.FeedScraper.Host.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var controllerAssembly = typeof(AboutController).Assembly;
-            services.AddControllers()
-                    .PartManager.ApplicationParts.Add(new AssemblyPart(controllerAssembly));
+            services.AddControllersFromAssembly(typeof(AboutController));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
