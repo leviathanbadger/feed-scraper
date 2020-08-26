@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Leviathanbadger.FeedScraper.Host\Leviathanbadger.FeedScraper.Host.csproj" />
+  </ItemGroup>
+
+</Project>
