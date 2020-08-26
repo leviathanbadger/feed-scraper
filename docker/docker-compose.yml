@@ -1,0 +1,13 @@
+version: '2.0'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-CU6-ubuntu-16.04
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=ifX6Uwj3kiqWmZiwdrFf
+    volumes:
+      - mssql-volume:/var/opt/mssql
+volumes:
+  mssql-volume: {}

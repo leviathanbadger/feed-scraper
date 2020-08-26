@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Hangfire;
+using Hangfire.SqlServer;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
@@ -24,6 +26,22 @@ namespace Leviathanbadger.FeedScraper.Host.Configuration.Extensions
         {
             mvcBuilder.PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
             return mvcBuilder;
+        }
+
+        public static IServiceCollection AddHangfire(this IServiceCollection services, string connectionString)
+        {
+            return services.AddHangfire(cfg => cfg.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                                                  .UseSimpleAssemblyNameTypeSerializer()
+                                                  .UseRecommendedSerializerSettings()
+                                                  .UseSqlServerStorage(connectionString, new SqlServerStorageOptions
+                                                  {
+                                                      CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                                                      SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                                                      QueuePollInterval = TimeSpan.Zero,
+                                                      UseRecommendedIsolationLevel = true,
+                                                      DisableGlobalLocks = true
+                                                  }))
+                           .AddHangfireServer();
         }
     }
 }

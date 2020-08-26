@@ -31,8 +31,6 @@ namespace Leviathanbadger.FeedScraper.Host.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
